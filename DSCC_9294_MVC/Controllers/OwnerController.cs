@@ -7,7 +7,7 @@ namespace DSCC_9294_MVC.Controllers
 {
     public class OwnerController : Controller
     {
-        private Uri baseAddress = new Uri("https://localhost:44327/api");
+        private Uri baseAddress = new Uri("http://ec2-3-101-55-181.us-west-1.compute.amazonaws.com/");
         private readonly HttpClient httpClient;
 
         public OwnerController()
@@ -19,7 +19,7 @@ namespace DSCC_9294_MVC.Controllers
         public IActionResult Index()
         {
             IList<OwnerViewModel> ownerList = new List<OwnerViewModel>();
-            HttpResponseMessage response = this.httpClient.GetAsync(this.httpClient.BaseAddress + "/owner/Get").Result;
+            HttpResponseMessage response = this.httpClient.GetAsync(this.httpClient.BaseAddress + "api/owner/Get").Result;
 
             if (response.IsSuccessStatusCode)
             {
@@ -44,7 +44,7 @@ namespace DSCC_9294_MVC.Controllers
                 var data = JsonConvert.SerializeObject(ownerViewModel);
                 StringContent stringContent = new StringContent(data, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = this.httpClient.PostAsync(
-                    this.httpClient.BaseAddress + "/owner/Post", stringContent).Result;
+                    this.httpClient.BaseAddress + "api/owner/Post", stringContent).Result;
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -65,7 +65,7 @@ namespace DSCC_9294_MVC.Controllers
         {
             OwnerViewModel owner = new OwnerViewModel();
             HttpResponseMessage response = this.httpClient.GetAsync(
-                this.httpClient.BaseAddress + "/owner/Get/" + id).Result;
+                this.httpClient.BaseAddress + "api/owner/Get/" + id).Result;
 
             if (response.IsSuccessStatusCode)
             {
@@ -83,7 +83,7 @@ namespace DSCC_9294_MVC.Controllers
                 var data = JsonConvert.SerializeObject(ownerViewModel);
                 StringContent stringContent = new StringContent(data, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = this.httpClient.PutAsync(
-                    this.httpClient.BaseAddress + "/owner/Put", stringContent).Result;
+                    this.httpClient.BaseAddress + "api/owner/Put", stringContent).Result;
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -106,7 +106,7 @@ namespace DSCC_9294_MVC.Controllers
             {
                 OwnerViewModel owner = new OwnerViewModel();
                 HttpResponseMessage response = this.httpClient.GetAsync(
-                    this.httpClient.BaseAddress + "/owner/Get/" + id).Result;
+                    this.httpClient.BaseAddress + "api/owner/Get/" + id).Result;
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -129,7 +129,7 @@ namespace DSCC_9294_MVC.Controllers
             try
             {
                 HttpResponseMessage response = this.httpClient.DeleteAsync(
-                    this.httpClient.BaseAddress + "/owner/Delete/" + id).Result;
+                    this.httpClient.BaseAddress + "api/owner/Delete/" + id).Result;
 
                 if (response.IsSuccessStatusCode)
                 {

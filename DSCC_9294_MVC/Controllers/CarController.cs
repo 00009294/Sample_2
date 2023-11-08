@@ -7,7 +7,7 @@ namespace DSCC_9294_MVC.Controllers
 {
     public class CarController : Controller
     {
-        private Uri baseAddress = new Uri("https://localhost:44327/api");
+        private Uri baseAddress = new Uri("http://ec2-3-101-55-181.us-west-1.compute.amazonaws.com/");
         private readonly HttpClient httpClient;
 
         public CarController()
@@ -19,7 +19,7 @@ namespace DSCC_9294_MVC.Controllers
         public IActionResult Index()
         {
             IList<CarViewModel> carList = new List<CarViewModel>();
-            HttpResponseMessage response = this.httpClient.GetAsync(this.httpClient.BaseAddress + "/car/Get").Result;
+            HttpResponseMessage response = this.httpClient.GetAsync(this.httpClient.BaseAddress + "api/car/Get").Result;
 
             if (response.IsSuccessStatusCode)
             {
@@ -44,7 +44,7 @@ namespace DSCC_9294_MVC.Controllers
                 var data = JsonConvert.SerializeObject(carViewModel);
                 StringContent stringContent = new StringContent(data, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = this.httpClient.PostAsync(
-                    this.httpClient.BaseAddress + "/Car/Post", stringContent).Result;
+                    this.httpClient.BaseAddress + "api/Car/Post", stringContent).Result;
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -65,7 +65,7 @@ namespace DSCC_9294_MVC.Controllers
         {
             CarViewModel car = new CarViewModel();
             HttpResponseMessage response = this.httpClient.GetAsync(
-                this.httpClient.BaseAddress + "/Car/Get/" + id).Result;
+                this.httpClient.BaseAddress + "api/Car/Get/" + id).Result;
 
             if (response.IsSuccessStatusCode)
             {
@@ -83,7 +83,7 @@ namespace DSCC_9294_MVC.Controllers
                 var data = JsonConvert.SerializeObject(carViewModel);
                 StringContent stringContent = new StringContent(data, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = this.httpClient.PutAsync(
-                    this.httpClient.BaseAddress + "/Car/Put", stringContent).Result;
+                    this.httpClient.BaseAddress + "api/Car/Put", stringContent).Result;
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -106,7 +106,7 @@ namespace DSCC_9294_MVC.Controllers
             {
                 CarViewModel car = new CarViewModel();
                 HttpResponseMessage response = this.httpClient.GetAsync(
-                    this.httpClient.BaseAddress + "/Car/Get/" + id).Result;
+                    this.httpClient.BaseAddress + "api/Car/Get/" + id).Result;
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -129,7 +129,7 @@ namespace DSCC_9294_MVC.Controllers
             try
             {
                 HttpResponseMessage response = this.httpClient.DeleteAsync(
-                    this.httpClient.BaseAddress + "/Car/Delete/" + id).Result;
+                    this.httpClient.BaseAddress + "api/Car/Delete/" + id).Result;
 
                 if (response.IsSuccessStatusCode)
                 {
